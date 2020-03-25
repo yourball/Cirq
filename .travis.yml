@@ -29,20 +29,6 @@ matrix:
     install:
     - dev_tools/conf/pip-install-minimal-for-pytest-changed-files.sh
     script: check/pytest-changed-files
-  - stage: quick_test
-    os: linux
-    env: NAME=format
-    python: '3.6'
-    install:
-      - cat dev_tools/conf/pip-list-dev-tools.txt | grep yapf | xargs pip install
-    script: check/format-incremental
-  - stage: quick_test
-    os: linux
-    env: NAME=mypy
-    python: '3.6'
-    install:
-      - cat dev_tools/conf/pip-list-dev-tools.txt | grep mypy | xargs pip install
-    script: check/mypy
   - stage: test
     os: windows
     env: NAME=pytest (Windows)
@@ -57,15 +43,6 @@ matrix:
       - python -m pip install -r cirq/contrib/contrib-requirements.txt
       - python -m pip install -r dev_tools/conf/pip-list-dev-tools.txt
     script: check/pytest --benchmark-skip
-  - stage: test
-    os: linux
-    env: NAME=pytest-and-incremental-coverage
-    python: '3.6'
-    install:
-    - python -m pip install -r requirements.txt
-    - python -m pip install -r cirq/contrib/contrib-requirements.txt
-    - python -m pip install -r dev_tools/conf/pip-list-dev-tools.txt
-    script: check/pytest-and-incremental-coverage master --actually-quiet
   - stage: test
     os: linux
     env: NAME=build-docs
@@ -104,14 +81,6 @@ matrix:
     - python -m pip install -r requirements.txt
     - python -m pip install -r cirq/contrib/contrib-requirements.txt
     script: check/doctest -q
-  - stage: test
-    os: linux
-    env: NAME=pylint
-    python: '3.6'
-    install:
-      - cat dev_tools/conf/pip-list-dev-tools.txt | grep "pylint\|astroid" | grep -v
-        "#" | xargs pip install
-    script: check/pylint
   - stage: test
     os: linux
     env: NAME=build-protos
