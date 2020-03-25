@@ -16,19 +16,6 @@ stages:
   if: type = push AND branch = master
 matrix:
   include:
-  - stage: quick_test
-    os: linux
-    env: NAME=misc
-    python: '3.6'
-    install: skip
-    script: check/misc
-  - stage: quick_test
-    os: linux
-    env: NAME=pytest-changed-files
-    python: '3.6'
-    install:
-    - dev_tools/conf/pip-install-minimal-for-pytest-changed-files.sh
-    script: check/pytest-changed-files
   - stage: test
     os: windows
     env: NAME=pytest (Windows)
@@ -42,7 +29,7 @@ matrix:
       - python -m pip install -r requirements.txt
       - python -m pip install -r cirq/contrib/contrib-requirements.txt
       - python -m pip install -r dev_tools/conf/pip-list-dev-tools.txt
-    script: check/pytest --benchmark-skip
+    script: check/pytest --benchmark-skip 
   - stage: test
     os: linux
     env: NAME=build-docs
