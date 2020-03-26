@@ -29,28 +29,7 @@ matrix:
       - python -m pip install -r requirements.txt
       - python -m pip install -r cirq/contrib/contrib-requirements.txt
       - python -m pip install -r dev_tools/conf/pip-list-dev-tools.txt
-    script: check/pytest --benchmark-skip 
-  - stage: test
-    os: osx
-    env: NAME=pytest (macOS)
-    python: '3.7'
-    language: generic
-    install:
-      - python3.7 -m venv venv
-      - source venv/bin/activate
-      - python -m pip install -r requirements.txt
-      - python -m pip install -r cirq/contrib/contrib-requirements.txt
-      - python -m pip install -r dev_tools/conf/pip-list-dev-tools.txt
     script: check/pytest --benchmark-skip
-  - stage: test
-    os: linux
-    env: NAME=build-protos
-    python: '3.6'
-    install:
-      - python -m pip install -r dev_tools/conf/pip-list-dev-tools.txt
-      - wget https://github.com/bazelbuild/bazel/releases/download/0.26.0/bazel_0.26.0-linux-x86_64.deb
-      - sudo dpkg -i bazel_0.26.0-linux-x86_64.deb
-    script: check/build-protos
   - stage: deploy
     os: linux
     env: NAME=dev-release
