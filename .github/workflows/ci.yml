@@ -119,7 +119,7 @@ jobs:
       - name: Coverage check
         run: check/pytest-and-incremental-coverage master --actually-quiet
 
-    build_docs:
+  build_docs:
     name: Build docs
     runs-on: ubuntu-16.04
     steps:
