@@ -72,7 +72,7 @@ jobs:
         run: check/pylint
 
   pytest:
-    name: Pytest check
+    name: Pytest Ubuntu
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v1
@@ -87,7 +87,7 @@ jobs:
       - name: Pytest check
         run: check/pytest --ignore=cirq/contrib --benchmark-skip --actually-quiet
   macos:
-    name: Pytest check
+    name: Pytest MacOS
     runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v1
@@ -114,6 +114,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           python -m pip install -r cirq/contrib/contrib-requirements.txt
+          pip install -r dev_tools/conf/pip-list-dev-tools.txt
       - name: Doc check
         run: check/doctest -q
 

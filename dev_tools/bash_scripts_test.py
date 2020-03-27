@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import os
+import sys
 from typing import TYPE_CHECKING, Iterable
 
 from dev_tools import shell_tools
@@ -23,6 +24,11 @@ if TYPE_CHECKING:
 
 def only_on_posix(func):
     if os.name != 'posix':
+        return None
+    return func
+
+def only_on_linux(func):
+    if sys.platform != 'linux':
         return None
     return func
 
@@ -76,7 +82,7 @@ chmod +x ./test-script.sh
                                  err=shell_tools.TeeCapture())
 
 
-@only_on_posix
+@only_on_linux
 def test_pytest_changed_files_file_selection(tmpdir_factory):
 
     result = run(script_file='check/pytest-changed-files',
@@ -156,7 +162,7 @@ def test_pytest_changed_files_file_selection(tmpdir_factory):
         "Found 2 test files associated with changes.\n").split()
 
 
-@only_on_posix
+@only_on_linux
 def test_pytest_changed_files_branch_selection(tmpdir_factory):
 
     result = run(script_file='check/pytest-changed-files',
@@ -271,7 +277,7 @@ def test_pytest_changed_files_branch_selection(tmpdir_factory):
         "Found 0 test files associated with changes.\n").split()
 
 
-@only_on_posix
+@only_on_linux
 def test_pytest_and_incremental_coverage_branch_selection(tmpdir_factory):
     result = run(script_file='check/pytest-and-incremental-coverage',
                  tmpdir_factory=tmpdir_factory,
@@ -407,7 +413,7 @@ def test_pytest_and_incremental_coverage_branch_selection(tmpdir_factory):
         "Comparing against revision 'master' (merge base ")
 
 
-@only_on_posix
+@only_on_linux
 def test_incremental_format_branch_selection(tmpdir_factory):
     result = run(script_file='check/format-incremental',
                  tmpdir_factory=tmpdir_factory,
