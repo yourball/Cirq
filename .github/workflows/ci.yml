@@ -133,7 +133,7 @@ jobs:
           pip install -r cirq/contrib/contrib-requirements.txt
           pip install -r dev_tools/conf/pip-list-dev-tools.txt
       - name: Coverage check
-        run: check/pytest-and-incremental-coverage master --actually-quiet
+        run: check/pytest-and-incremental-coverage --actually-quiet
 
   build_docs:
     name: Build docs
