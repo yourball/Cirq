@@ -101,6 +101,21 @@ jobs:
           pip install -r dev_tools/conf/pip-list-dev-tools.txt
       - name: Pytest check
         run: check/pytest --ignore=cirq/contrib --benchmark-skip --actually-quiet
+  windows:
+    name: Pytest Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: '3.6'
+          architecture: 'x64'
+      - name: Install requirements
+        run: |
+          pip install -r requirements.txt
+          pip install -r dev_tools/conf/pip-list-dev-tools.txt
+      - name: Pytest Windows
+        run: check/pytest --ignore=cirq/contrib --benchmark-skip --actually-quiet
   doc_test:
     name: Doc test
     runs-on: ubuntu-16.04
