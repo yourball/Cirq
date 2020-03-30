@@ -61,6 +61,8 @@ def run(
         f.writelines(script_lines)
 
     cmd = r"""
+git config user.name "abc"
+git config user.email "abc@example.com"
 dir=$(git rev-parse --show-toplevel)
 cd {}
 git init --quiet
